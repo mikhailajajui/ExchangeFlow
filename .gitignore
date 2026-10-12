@@ -1,0 +1,14 @@
+# Not published (product owner, 2026-10-12): course material, another project's design references, local agent setup.
+template/
+visual_design/
+.claude/
+agents/
+
+# Build output and local data
+_site/
+node_modules/
+.data/
+dist/
+dist-prototype/
+*.log
+.DS_Store

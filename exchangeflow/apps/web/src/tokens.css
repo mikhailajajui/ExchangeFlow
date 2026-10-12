@@ -1,0 +1,108 @@
+/* ExchangeFlow design tokens v2. "The slip and the ledger", Alterna-aligned palette (provisional, DL-N09 / DL-N37).
+   Brand values were read from the public site alterna.ca, not an official brand guide. Brand use needs Alterna sign-off.
+
+   Fonts: NO third-party requests, no Google Fonts. Self-host through npm packages, imported once in the app entry
+   (apps/web/src/main.tsx), which bundles the woff2 files into the app origin (CSP font-src 'self'):
+     import "@fontsource/inter/400.css";  import "@fontsource/inter/500.css";
+     import "@fontsource/inter/600.css";  import "@fontsource/inter/700.css";
+     import "@fontsource/ibm-plex-mono/400.css"; import "@fontsource/ibm-plex-mono/500.css"; import "@fontsource/ibm-plex-mono/600.css";
+     import "@fontsource/barlow-condensed/700.css";   // stamp only; drop it if DL-N37 declines a third family
+   All three are SIL OFL. Import the latin and latin-ext subsets only (French accents). */
+
+:root {
+
+  /* Type families */
+  --font-ui: "Inter", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  --font-figure: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-stamp: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+
+  /* Type scale (rem, base 16px). Body 15px for dense desks. */
+  --text-xs: 0.8125rem;   /* 13  meta, table headers */
+  --text-sm: 0.875rem;    /* 14  secondary */
+  --text-md: 0.9375rem;   /* 15  body, controls */
+  --text-lg: 1.125rem;    /* 18  section titles */
+  --text-xl: 1.5rem;      /* 24  page titles */
+  --text-2xl: 2rem;       /* 32  slip amount */
+  --text-stamp: 2.25rem;  /* 36  outcome stamp */
+  --leading-tight: 1.2;
+  --leading-body: 1.5;
+  --measure: 68ch;        /* max line length for prose */
+
+  /* Spacing (4px base) */
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
+  --space-5: 1.5rem;  --space-6: 2rem;   --space-7: 3rem;
+
+  /* Shape and elevation. Square-ish, flat; paper is separated by rules, not shadows. */
+  --radius-sm: 2px;       /* controls, chips */
+  --radius-md: 4px;       /* dialogs only */
+  --border-hair: 1px;
+  --border-edge: 2px;     /* slip outline, focus */
+
+  /* Layout */
+  --page-max: 78rem;
+  --slip-width: 36rem;
+  --rail-width: 20rem;
+  --row-height: 2.75rem;  /* 44px, touch and click target */
+
+  /* Colour roles, light ("daylight on warm ledger paper"). Values are defined below in the theme blocks. */
+}
+
+:root, :root[data-theme="light"] {
+  color-scheme: light;
+  --paper: #F3F1F0;        /* page background (Alterna warm grey) */
+  --slip: #FFFFFF;         /* the form, receipt, detail sheet and the top bar */
+  --rule: #D8D3CF;         /* decorative hairlines only (1.3:1), never the sole boundary of a control */
+  --edge: #7A7470;         /* control borders, meter outline (>= 3:1 on paper, slip, tints) */
+  --ink: #2A2A3E;          /* Alterna navy: text, headings, slip outline */
+  --ink-muted: #55536A;    /* secondary text */
+  --btn: #2A2A3E;          /* primary button fill */
+  --on-btn: #FFFFFF;
+  --brand: #BD5A00;        /* Alterna burnt orange. ACCENT ONLY: wordmark, active-nav underline. Text only on --slip. Never a status. */
+  --brand-tint: #F2DECC;   /* peach; decorative hover on nav only, never a status surface */
+  --on-brand: #FFFFFF;     /* text on a --brand fill (decorative button variant only) */
+  --link: #2F3A8C;         /* links and quiet buttons */
+  --review: #2F3A8C;       /* "in head-office review": indigo, with its own half-circle shape */
+  --review-tint: #E6E8F4;
+  --good: #1B6B3D;         /* approved, completed */
+  --bad: #B3261E;          /* declined, destructive */
+  --warn: #6F4A00;         /* needs action: gold-brown, with its own diamond shape; not the brand orange */
+  --good-tint: #E3F1E7;
+  --bad-tint: #F9E4E1;
+  --warn-tint: #F7EBCF;
+  --focus: #2A2A3E;        /* focus ring: navy, >= 11:1 on every surface */
+  --shadow-lift: 0 1px 0 var(--rule), 0 8px 24px -12px rgb(0 0 0 / 0.35); /* dialogs only */
+}
+
+/* Dark follows the OS unless the page forces light. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #1C1C28; --slip: #262638; --rule: #3A3A52; --edge: #8A8AA3;
+    --ink: #ECEBF2; --ink-muted: #B0AFC4; --btn: #ECEBF2; --on-btn: #1C1C28;
+    --brand: #F7931E; --brand-tint: #3A2A1C; --on-brand: #1C1C28;
+    --link: #AEB8FF; --review: #AEB8FF; --review-tint: #2A2D55;
+    --good: #6FD08F; --bad: #FF8F85; --warn: #E8B84A;
+    --good-tint: #17301F; --bad-tint: #3A1B19; --warn-tint: #3A2D0E;
+    --focus: #ECEBF2;
+    --shadow-lift: 0 1px 0 var(--rule), 0 8px 24px -12px rgb(0 0 0 / 0.8);
+  }
+}
+
+/* Forced dark (QA switch, or a user setting). Must repeat the dark values: a media query cannot be forced on. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #1C1C28; --slip: #262638; --rule: #3A3A52; --edge: #8A8AA3;
+  --ink: #ECEBF2; --ink-muted: #B0AFC4; --btn: #ECEBF2; --on-btn: #1C1C28;
+  --brand: #F7931E; --brand-tint: #3A2A1C; --on-brand: #1C1C28;
+  --link: #AEB8FF; --review: #AEB8FF; --review-tint: #2A2D55;
+  --good: #6FD08F; --bad: #FF8F85; --warn: #E8B84A;
+  --good-tint: #17301F; --bad-tint: #3A1B19; --warn-tint: #3A2D0E;
+  --focus: #ECEBF2;
+  --shadow-lift: 0 1px 0 var(--rule), 0 8px 24px -12px rgb(0 0 0 / 0.8);
+}
+
+/* Money: always tabular, right-aligned, from decimal strings */
+.money { font-family: var(--font-figure); font-variant-numeric: tabular-nums slashed-zero; text-align: right; white-space: nowrap; }
+
+/* Motion: the only animation is the outcome stamp, user-triggered by submitting. */
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }

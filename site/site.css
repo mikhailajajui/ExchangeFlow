@@ -1,0 +1,30 @@
+:root { --paper: #F3F1F0; --slip: #FFFFFF; --ink: #2A2A3E; --muted: #55536A; --rule: #D8D3CF; --brand: #BD5A00; --link: #2F3A8C; --tint: #E6E8F4; }
+@media (prefers-color-scheme: dark) { :root { --paper: #1C1C28; --slip: #262638; --ink: #ECEBF2; --muted: #B0AFC4; --rule: #3A3A52; --brand: #F7931E; --link: #AEB8FF; --tint: #2A2D55; } }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.55 "Inter", "Segoe UI", system-ui, -apple-system, Arial, sans-serif; }
+a { color: var(--link); }
+.bar { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1rem; background: var(--slip); border-bottom: 2px solid var(--ink); flex-wrap: wrap; }
+.brand { font-weight: 700; color: var(--ink); text-decoration: none; }
+.flow { color: var(--brand); }
+.sub { color: var(--muted); border-left: 1px solid var(--rule); padding-left: 1rem; font-weight: 600; }
+.sp { flex: 1; }
+.wrap { max-width: 60rem; margin: 0 auto; padding: 1.5rem 1rem; }
+h1 { font-size: 1.75rem; line-height: 1.2; margin: 0.5rem 0 1rem; }
+.lead { font-size: 1.125rem; max-width: 46rem; }
+.note { border-left: 4px solid var(--link); background: var(--tint); padding: 0.6rem 0.9rem; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+.card { display: block; background: var(--slip); border: 2px solid var(--ink); padding: 1.25rem; color: var(--ink); text-decoration: none; }
+.card:hover, .card:focus-visible { background: var(--tint); }
+.card h2 { margin: 0 0 0.5rem; font-size: 1.25rem; }
+.go { font-weight: 600; color: var(--link); }
+.h2 { font-size: 1.25rem; margin-top: 2rem; }
+.foot { color: var(--muted); font-size: 0.875rem; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.doc { background: var(--slip); border: 1px solid var(--rule); margin-top: 1rem; margin-bottom: 2rem; }
+.doc table { border-collapse: collapse; width: 100%; display: block; overflow-x: auto; font-size: 0.9375rem; }
+.doc th, .doc td { border: 1px solid var(--rule); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+.doc th { background: var(--paper); }
+.doc blockquote { border-left: 4px solid var(--link); background: var(--tint); margin: 1rem 0; padding: 0.5rem 1rem; }
+.doc code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.875em; }
+.doc .mermaid { margin: 1.25rem 0; overflow-x: auto; text-align: center; }
+.doc hr { border: 0; border-top: 1px solid var(--rule); margin: 2rem 0; }

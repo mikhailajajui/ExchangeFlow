@@ -1,0 +1,30 @@
+{
+  "name": "@ef/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "EF_ENV=dev tsx watch src/main.ts",
+    "start": "tsx src/main.ts"
+  },
+  "dependencies": {
+    "@ef/adapter-postgres": "workspace:*",
+    "@ef/adapter-rates": "workspace:*",
+    "@ef/app-services": "workspace:*",
+    "@ef/policy-core": "workspace:*",
+    "@ef/ports": "workspace:*",
+    "@ef/workflow-core": "workspace:*",
+    "@nestjs/common": "^11.0.0",
+    "@nestjs/core": "^11.0.0",
+    "@nestjs/platform-express": "^11.0.0",
+    "cookie-parser": "^1.4.7",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1",
+    "pg": "^8.13.0"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.8",
+    "@types/express": "^5.0.0",
+    "@types/pg": "^8.11.0"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "# status": "TO-BE-CHANGED: interim rules set by the product owner on 2026-10-12 until head office supplies its rules (ADR-029, DL-N49).",
+  "ruleSetId": "HO-FX-INTERIM",
+  "version": "2026-10-12.2",
+  "status": "TRIAL",
+  "approvedBy": "",
+  "approvedOn": "",
+  "# confirmationEmail": "TO-BE-CHANGED: placeholder address until head office names the confirmation mailbox (DL-N43).",
+  "confirmationEmail": "fx-confirmations@example.org",
+  "# branches": "TO-BE-CHANGED: sample branches.",
+  "branches": [
+    { "id": "BR-TOR", "name": "Toronto Main", "timezone": "America/Toronto" },
+    { "id": "BR-OTT", "name": "Ottawa Centre", "timezone": "America/Toronto" }
+  ],
+  "currencies": ["CAD", "USD"],
+  "supportedPairs": ["CAD/USD", "USD/CAD"],
+  "paymentMethods": ["CASH", "ACCOUNT"],
+  "# branchLimit": "TO-BE-CHANGED: a member selling USD for CAD may exchange up to 2,000.00 USD; a member selling CAD for USD up to 1,500.00 CAD. Above the limit the request cannot be done at the branch.",
+  "branchLimit": { "USD": "2000.00", "CAD": "1500.00" },
+  "businessHoursOnly": true,
+  "# holidays": "TO-BE-CHANGED: head office to list the statutory and branch holidays (YYYY-MM-DD). On these dates every request needs head-office review.",
+  "holidays": []
+}

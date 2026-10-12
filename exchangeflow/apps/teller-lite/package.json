@@ -1,0 +1,35 @@
+{
+  "name": "@ef/teller-lite",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k -n server,web -c green,magenta \"EFL_DEV=1 tsx watch src/server/main.ts\" \"vite\"",
+    "server": "tsx src/server/main.ts",
+    "build": "vite build",
+    "start": "tsx src/server/main.ts",
+    "typecheck": "tsc --noEmit",
+    "build:prototype": "vite build --mode prototype",
+    "prototype": "vite --mode prototype --port 5175"
+  },
+  "dependencies": {
+    "@ef/adapter-rates": "workspace:*",
+    "@ef/policy-core": "workspace:*",
+    "@ef/workflow-core": "workspace:*",
+    "@fontsource/barlow-condensed": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource/inter": "^5.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "concurrently": "^9.1.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vite": "^7.0.0"
+  }
+}

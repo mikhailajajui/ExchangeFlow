@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ExchangeFlow screens reference</title>
+<style>
+/* No external requests. Fonts: Inter, IBM Plex Mono and Barlow Condensed are used if installed locally; otherwise the
+   system fallbacks apply. The product self-hosts them via @fontsource (see tokens.css). Values mirror tokens.css v2. */
+:root{
+--font-ui:"Inter","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+--font-figure:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+--font-stamp:"Barlow Condensed","Arial Narrow","Helvetica Neue",Arial,sans-serif}
+:root,:root[data-theme=light]{color-scheme:light;
+--paper:#F3F1F0;--slip:#fff;--rule:#D8D3CF;--edge:#7A7470;--ink:#2A2A3E;--ink-muted:#55536A;--btn:#2A2A3E;--on-btn:#fff;
+--brand:#BD5A00;--brand-tint:#F2DECC;--on-brand:#fff;--link:#2F3A8C;--review:#2F3A8C;--review-tint:#E6E8F4;
+--good:#1B6B3D;--bad:#B3261E;--warn:#6F4A00;--good-tint:#E3F1E7;--bad-tint:#F9E4E1;--warn-tint:#F7EBCF;--focus:#2A2A3E}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--paper:#1C1C28;--slip:#262638;--rule:#3A3A52;--edge:#8A8AA3;--ink:#ECEBF2;--ink-muted:#B0AFC4;--btn:#ECEBF2;--on-btn:#1C1C28;--brand:#F7931E;--brand-tint:#3A2A1C;--on-brand:#1C1C28;--link:#AEB8FF;--review:#AEB8FF;--review-tint:#2A2D55;--good:#6FD08F;--bad:#FF8F85;--warn:#E8B84A;--good-tint:#17301F;--bad-tint:#3A1B19;--warn-tint:#3A2D0E;--focus:#ECEBF2}}
+:root[data-theme=dark]{color-scheme:dark;--paper:#1C1C28;--slip:#262638;--rule:#3A3A52;--edge:#8A8AA3;--ink:#ECEBF2;--ink-muted:#B0AFC4;--btn:#ECEBF2;--on-btn:#1C1C28;--brand:#F7931E;--brand-tint:#3A2A1C;--on-brand:#1C1C28;--link:#AEB8FF;--review:#AEB8FF;--review-tint:#2A2D55;--good:#6FD08F;--bad:#FF8F85;--warn:#E8B84A;--good-tint:#17301F;--bad-tint:#3A1B19;--warn-tint:#3A2D0E;--focus:#ECEBF2}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 .9375rem/1.5 var(--font-ui)}
+h1,h2,h3,h4,p,dl,dd,ol,ul{margin:0}
+.money{font-family:var(--font-figure);font-variant-numeric:tabular-nums slashed-zero;text-align:right;white-space:nowrap}
+code,.ref{font-family:var(--font-figure);font-size:.875rem}
+.muted{color:var(--ink-muted)}
+a{color:var(--link);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* sheet that frames each screen on this reference page */
+.gallery{max-width:96rem;margin:0 auto;padding:2rem 1.5rem 4rem}
+.gallery>h1{font-size:1.5rem;line-height:1.2}
+.gallery>p{max-width:68ch;margin:.5rem 0 2rem}
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,34rem),1fr));gap:2rem 1.5rem;align-items:start}
+.board.wide{grid-template-columns:1fr}
+.frame{border:1px solid var(--rule);background:var(--paper)}
+.frame>.cap{padding:.4rem .75rem;border-bottom:1px solid var(--rule);font-size:.8125rem;color:var(--ink-muted);background:var(--slip)}
+.frame>.cap b{color:var(--ink);font-weight:600}
+.screen{padding:0 0 1.5rem}
+
+/* app chrome */
+.bar{display:flex;align-items:center;gap:1.25rem;min-height:3rem;padding:0 1rem;background:var(--slip);border-bottom:2px solid var(--ink)}
+.brand{font-weight:700;font-size:1rem;letter-spacing:0;color:var(--ink)}
+.brand b{font-weight:700;color:var(--brand)} /* orange text only on the white top bar (4.54:1); a dark-theme value passes 6.46:1 */
+.bar nav{display:flex;gap:.25rem;flex-wrap:wrap}
+.bar nav a{padding:.75rem .6rem;color:var(--ink);text-decoration:none;border-bottom:3px solid transparent;margin-bottom:-2px}
+.bar nav a[aria-current=page]{border-bottom-color:var(--brand);font-weight:600}
+.bar nav a:hover{background:var(--brand-tint);color:var(--ink)}
+.bar .sp{flex:1}
+.who{font-size:.8125rem;color:var(--ink-muted);text-align:right}
+.env{background:var(--warn-tint);color:var(--warn);font-size:.8125rem;padding:.25rem 1rem;border-bottom:1px solid var(--rule)}
+.page{padding:1.25rem 1rem 0}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
+.head h2{font-size:1.5rem;line-height:1.2;font-weight:600}
+.head p{font-size:.875rem}
+
+/* buttons */
+.btn{font:600 .9375rem/1 var(--font-ui);min-height:2.5rem;padding:0 1rem;border:2px solid var(--btn);background:var(--btn);color:var(--on-btn);border-radius:2px;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;text-decoration:none}
+.btn:hover{filter:brightness(1.15)}
+.btn:active{transform:translateY(1px)}
+.btn.sec{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn.sec:hover{background:var(--rule);filter:none}
+.btn.quiet{background:transparent;border-color:transparent;color:var(--link);text-decoration:underline;text-underline-offset:3px;padding:0 .5rem}
+.btn.brand{background:var(--brand);border-color:var(--brand);color:var(--on-brand)} /* decorative variant only, never a status or the main action */
+.btn.neg{background:var(--bad-tint);color:var(--bad);border-color:var(--bad)}
+.btn[disabled]{opacity:1;background:var(--rule);color:var(--ink-muted);border-color:var(--rule);cursor:not-allowed}
+.btn.sm{min-height:2rem;padding:0 .6rem;font-size:.875rem}
+
+/* status mark: shape + word + colour, never colour alone */
+.mark{display:inline-flex;align-items:center;gap:.4rem;font-weight:600;font-size:.875rem;white-space:nowrap}
+.mark i{display:inline-grid;place-items:center;width:1.1rem;height:1.1rem;font:700 .75rem/1 var(--font-ui);font-style:normal;border:2px solid currentColor}
+.mark.good{color:var(--good)} .mark.good i{border-radius:2px;background:var(--good);color:var(--slip)}
+.mark.bad{color:var(--bad)} .mark.bad i{border-radius:50%;background:var(--bad);color:var(--slip)}
+.mark.review{color:var(--review)} .mark.review i{border-radius:50% 50% 0 0;background:transparent}
+.mark.info{color:var(--warn)} .mark.info i{transform:rotate(45deg);border-radius:2px;background:transparent}
+.mark.info i b{transform:rotate(-45deg);font-weight:700}
+.mark.neutral{color:var(--ink-muted)} .mark.neutral i{border-style:dashed;border-radius:2px}
+.tag{display:inline-block;border:1px solid var(--edge);padding:0 .4rem;font-size:.8125rem;border-radius:2px;color:var(--ink)}
+
+/* ledger table */
+.ledger{width:100%;border-collapse:collapse;background:var(--slip);border-top:2px solid var(--ink);border-bottom:1px solid var(--rule)}
+.ledger th{font-size:.8125rem;font-weight:600;text-align:left;color:var(--ink-muted);padding:.5rem .75rem;border-bottom:1px solid var(--edge)}
+.ledger th.n,.ledger td.n{text-align:right}
+.ledger td{padding:0 .75rem;height:2.75rem;border-bottom:1px solid var(--rule);vertical-align:middle}
+.ledger tbody tr{box-shadow:inset 4px 0 0 var(--row,transparent)}
+.ledger tbody tr:hover{background:var(--paper)}
+.ledger tr.r-good{--row:var(--good)}.ledger tr.r-bad{--row:var(--bad)}.ledger tr.r-review{--row:var(--review)}.ledger tr.r-info{--row:var(--warn)}
+.ledger td:first-child{padding-left:1.25rem}
+.age{display:flex;align-items:center;gap:.5rem}
+.meter{width:3.5rem;height:.5rem;border:1px solid var(--edge);background:var(--slip);position:relative;border-radius:1px}
+.meter span{position:absolute;inset:0 auto 0 0;background:var(--ink-muted)}
+.filters{display:flex;gap:.5rem;margin-bottom:.75rem;flex-wrap:wrap}
+.filters button{font:500 .875rem var(--font-ui);padding:.35rem .7rem;border:1px solid var(--edge);background:transparent;color:var(--ink);border-radius:2px}
+.filters button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* the slip: form, receipt, detail */
+.slip{background:var(--slip);border:2px solid var(--ink);max-width:36rem;margin:0 auto;position:relative}
+.slip-head{display:flex;justify-content:space-between;align-items:baseline;padding:.6rem 1rem;border-bottom:2px solid var(--ink);gap:1rem;flex-wrap:wrap}
+.slip-head h3{font-size:1.125rem}
+.slip-body{padding:1rem}
+.sale{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:.75rem;align-items:end;padding:1rem;border:1px solid var(--edge);background:var(--paper);margin-bottom:1rem}
+.sale .gap{align-self:center;padding-bottom:.35rem;color:var(--ink-muted)}
+.f{display:grid;gap:.25rem;margin-bottom:1rem}
+.f>label,.lbl{font-weight:600;font-size:.875rem}
+.f .hint{font-size:.8125rem;color:var(--ink-muted)}
+.in{font:400 .9375rem var(--font-ui);min-height:2.5rem;padding:.4rem .6rem;border:1px solid var(--edge);border-radius:2px;background:var(--slip);color:var(--ink);width:100%}
+.in.amt{font:500 1.5rem var(--font-figure);text-align:right;font-variant-numeric:tabular-nums slashed-zero;min-height:3.25rem}
+.f.err .in{border:2px solid var(--bad);background:var(--bad-tint)}
+.f .msg{display:flex;gap:.4rem;color:var(--bad);font-weight:500;font-size:.875rem}
+.f .msg::before{content:"!";display:inline-grid;place-items:center;width:1.1rem;height:1.1rem;background:var(--bad);color:var(--slip);font-weight:700;font-size:.75rem;border-radius:50%;flex:none;margin-top:.1rem}
+.sum{border:1px solid var(--bad);background:var(--bad-tint);padding:.6rem .8rem;margin-bottom:1rem}
+.sum ul{padding-left:1.1rem;margin-top:.25rem}
+.actions{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:1rem}
+.perf{height:14px;background:radial-gradient(circle at 7px 0,var(--paper) 5px,transparent 5.5px) 0 0/14px 14px repeat-x;border-top:0}
+
+/* outcome: the one bold place */
+.docket{max-width:34rem;margin:0 auto;background:var(--slip);border:2px solid var(--ink);position:relative}
+.docket .tear{height:14px;background:radial-gradient(circle at 7px 14px,var(--paper) 5px,transparent 5.5px) 0 0/14px 14px repeat-x}
+.docket .in-body{padding:1.25rem 1.5rem 1rem;display:grid;gap:.9rem}
+.docket .line{display:flex;justify-content:space-between;gap:1rem;align-items:baseline;border-bottom:1px dotted var(--edge);padding-bottom:.4rem}
+.docket .big{font:500 2rem/1.1 var(--font-figure);font-variant-numeric:tabular-nums slashed-zero}
+.stamp{position:absolute;top:1.1rem;right:1.25rem;transform:rotate(-4deg);border:4px double currentColor;padding:.15rem .75rem;font:700 2.25rem/1.05 var(--font-stamp);text-transform:uppercase;letter-spacing:.04em;background:var(--slip);animation:thud .28s cubic-bezier(.2,.9,.3,1.2) 1 both}
+.stamp.good{color:var(--good)}.stamp.bad{color:var(--bad)}.stamp.review{color:var(--review)}
+.stamp small{display:block;font:600 .8125rem var(--font-ui);text-transform:none;letter-spacing:0}
+@keyframes thud{from{transform:rotate(-4deg) scale(1.5);opacity:0}to{transform:rotate(-4deg) scale(1);opacity:1}}
+@media (prefers-reduced-motion:reduce){.stamp{animation:none}}
+.docket h3{font-size:1.125rem;padding-right:11rem;min-height:3.5rem}
+.next{border-left:4px solid var(--review);padding:.25rem .75rem;background:var(--review-tint)}
+.docket.good .next{border-color:var(--good);background:var(--good-tint)}
+.docket.bad .next{border-color:var(--bad);background:var(--bad-tint)}
+
+/* detail */
+.two{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(16rem,1fr);gap:1.25rem;align-items:start}
+@media (max-width:48rem){.two{grid-template-columns:1fr}.stamp{position:static;display:inline-block;margin:1rem 0 0 1.5rem}.docket h3{padding-right:0}}
+.sheet{background:var(--slip);border:1px solid var(--edge);padding:1rem}
+.sheet h3{font-size:1.125rem;margin-bottom:.5rem}
+.kv{display:grid;grid-template-columns:minmax(6rem,max-content) 1fr;gap:.35rem 1rem}
+.kv dt{color:var(--ink-muted)}
+.timeline{list-style:none;padding:0;display:grid;grid-template-columns:7.5rem 1fr;position:relative}
+.timeline li{display:contents}
+.timeline .when{font-size:.8125rem;color:var(--ink-muted);padding:.5rem 1rem .5rem 0;text-align:right;font-family:var(--font-figure);font-variant-numeric:tabular-nums}
+.timeline .what{border-left:2px solid var(--edge);padding:.5rem 0 .5rem 1rem;position:relative}
+.timeline .what::before{content:"";position:absolute;left:-6px;top:.85rem;width:10px;height:10px;background:var(--slip);border:2px solid var(--ink)}
+.timeline .what.cycle{border-left:2px solid var(--review)}
+.timeline .what.cycle::before{background:var(--review);border-color:var(--review);border-radius:50%}
+.timeline .who2{font-size:.8125rem;color:var(--ink-muted)}
+.round{margin:.25rem 0;font-weight:600;color:var(--review);font-size:.875rem;grid-column:1/-1;padding:.5rem 0 .25rem;border-bottom:1px solid var(--rule)}
+
+/* decision panel */
+.decide{border:2px solid var(--review);background:var(--slip)}
+.decide header{background:var(--review-tint);padding:.6rem 1rem;border-bottom:1px solid var(--review)}
+.decide .body{padding:1rem}
+.decide .row{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.75rem}
+.btn.approve{background:var(--good);border-color:var(--good);color:var(--slip)}
+.engine{border:1px solid var(--edge);background:var(--slip)}
+.engine summary{cursor:pointer;padding:.6rem 1rem;font-weight:600}
+.engine .in-body{padding:0 1rem 1rem}
+
+/* form controls (Pass 4): radio, select, textarea, conditional field, language toggle, footer */
+.f fieldset{border:0;padding:0;margin:0 0 1rem;display:grid;gap:.25rem}
+.f legend{font-weight:600;font-size:.875rem;padding:0;margin-bottom:.25rem}
+.opt{display:flex;align-items:center;gap:.5rem;min-height:2.5rem}
+.opt input{appearance:none;margin:0;width:1.5rem;height:1.5rem;border:2px solid var(--edge);background:var(--slip);flex:none;display:inline-grid;place-items:center}
+.opt input[type=radio]{border-radius:50%}
+.opt input[type=radio]:checked::after{content:"";width:.75rem;height:.75rem;border-radius:50%;background:var(--ink)}
+.opt input[type=checkbox]:checked::after{content:"";width:.7rem;height:.4rem;border-left:3px solid var(--ink);border-bottom:3px solid var(--ink);transform:rotate(-45deg) translate(1px,-1px)}
+.opt input:checked{border-color:var(--ink)}
+.opt label{font-weight:400;font-size:.9375rem}
+select.in{appearance:none;padding-right:2rem;color:var(--ink);background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);background-position:calc(100% - 1.15rem) 50%,calc(100% - .8rem) 50%;background-size:.35rem .35rem;background-repeat:no-repeat;background-color:var(--slip)}
+textarea.in{min-height:6rem;resize:vertical;font-family:var(--font-ui)}
+.cond{border-left:2px solid var(--edge);padding-left:.75rem;margin-bottom:1rem}
+.lang{font:600 .875rem var(--font-ui);background:transparent;border:1px solid var(--edge);color:var(--ink);border-radius:2px;min-height:2rem;padding:0 .6rem;cursor:pointer}
+.foot{display:flex;gap:1rem;flex-wrap:wrap;border-top:1px solid var(--rule);padding:.75rem 1rem;font-size:.8125rem;color:var(--ink-muted);margin-top:1rem}
+
+.notes{max-width:68ch;margin:2rem 0 0;color:var(--ink-muted);font-size:.875rem}
+</style>
+</head>
+<body>
+<div class="gallery">
+<h1>ExchangeFlow screens reference</h1>
+<p class="muted">Static reference for the teller and reviewer screens, with sample data. It follows the system colour scheme, so switch your operating system to dark to see the dark theme. Spec: ui-design.md. Tokens: tokens.css.</p>
+
+<div class="board">
+
+<!-- 1 TELLER LIST -->
+<section class="frame" aria-labelledby="s1"><div class="cap"><b id="s1">Teller: my requests</b> (light or dark follows system)</div>
+<div class="screen">
+<div class="env">Test environment. Sample data only. Rules are placeholders.</div>
+<header class="bar"><span class="brand">Exchange<b>Flow</b></span>
+<nav aria-label="Main"><a href="#" aria-current="page">Requests</a><a href="#">New request</a></nav><span class="sp"></span>
+<div class="who">Amira Tran<br>Teller, Branch 014</div><a class="btn quiet" href="#">Sign out</a></header>
+<div class="page">
+<div class="head"><div><h2>My requests</h2><p class="muted">5 requests today. 1 needs your attention.</p></div><a class="btn" href="#">New request</a></div>
+<div class="filters" role="group" aria-label="Filter by status"><button aria-pressed="true">All</button><button aria-pressed="false">Needs my action (1)</button><button aria-pressed="false">In review (2)</button><button aria-pressed="false">Closed</button></div>
+<table class="ledger"><caption style="position:absolute;left:-9999px">My requests</caption>
+<thead><tr><th>Status</th><th>Ref</th><th class="n">Member sells</th><th>Buys</th><th>Updated</th></tr></thead>
+<tbody>
+<tr class="r-info"><td><span class="mark info"><i><b>?</b></i>More information needed</span></td><td><a class="ref" href="#">K7M2Q9</a></td><td class="n money">3,200.00 CAD</td><td>USD</td><td>9 min ago</td></tr>
+<tr class="r-good"><td><span class="mark good"><i>&#10003;</i>Approved</span></td><td><a class="ref" href="#">H3X8TD</a></td><td class="n money">500.00 CAD</td><td>USD</td><td>22 min ago</td></tr>
+<tr class="r-review"><td><span class="mark review"><i></i>In head-office review</span></td><td><a class="ref" href="#">P9R4WA</a></td><td class="n money">20,000.00 CAD</td><td>USD</td><td>1 h ago</td></tr>
+<tr class="r-bad"><td><span class="mark bad"><i>&#10005;</i>Declined by rule</span></td><td><a class="ref" href="#">B2N6LC</a></td><td class="n money">100.00 CAD</td><td>JPY</td><td>2 h ago</td></tr>
+<tr><td><span class="mark neutral"><i></i>Draft</span></td><td><a class="ref" href="#">D5T1ZE</a></td><td class="n money">250.00 EUR</td><td>CAD</td><td>3 h ago</td></tr>
+</tbody></table>
+</div></div></section>
+
+<!-- 2 NEW REQUEST WITH ERROR -->
+<section class="frame" aria-labelledby="s2"><div class="cap"><b id="s2">Teller: new request with errors</b></div>
+<div class="screen"><div class="page">
+<div class="head"><div><h2>New exchange request</h2><p class="muted">Branch and time are set for you.</p></div></div>
+<form class="slip" onsubmit="return false" novalidate aria-label="Exchange slip">
+<div class="slip-head"><h3>Exchange slip</h3><span class="muted">Draft, not saved</span></div>
+<div class="slip-body">
+<div class="sum" role="alert"><strong>2 things need fixing before you can submit.</strong><ul><li><a href="#amt">Sell amount: enter an amount, for example 500.00</a></li><li><a href="#buy">Currencies: choose two different currencies</a></li></ul></div>
+<div class="sale">
+ <div class="f err" style="margin:0"><label for="amt">Member sells</label><input id="amt" class="in amt" value="5OO" aria-invalid="true" aria-describedby="amt-e" inputmode="decimal"><span class="msg" id="amt-e">Enter digits only, for example 500.00.</span></div>
+ <div class="f err" style="margin:0"><label for="sc">From</label><select id="sc" class="in"><option>CAD</option></select></div>
+ <div class="f err" style="margin:0"><label for="buy">To</label><select id="buy" class="in" aria-invalid="true" aria-describedby="buy-e"><option>CAD</option></select></div>
+ <span class="msg" id="buy-e" style="grid-column:1/-1;display:flex;gap:.4rem;color:var(--bad);font-weight:500;font-size:.875rem">The two currencies must be different. Change one of them.</span>
+</div>
+<div class="f"><label for="t">Request type</label><select id="t" class="in"><option>Exchange</option><option>Wire</option></select></div>
+<div class="f"><label for="pm">Payment method</label><select id="pm" class="in"><option>From account</option></select></div>
+<div class="f"><label for="ref">Member reference (optional)</label><input id="ref" class="in"><span class="hint">Use the reference from the core system. Do not type names or account numbers.</span></div>
+<div class="f"><label for="note">Note for the reviewer (optional)</label><textarea id="note" class="in" rows="2"></textarea><span class="hint">Keep it short. No personal details.</span></div>
+<div class="actions"><button class="btn" type="submit">Submit request</button><button class="btn sec" type="button">Save draft</button><a class="btn quiet" href="#">Cancel</a></div>
+</div></form>
+</div></div></section>
+
+<!-- 3a OUTCOME APPROVE -->
+<section class="frame" aria-labelledby="s3"><div class="cap"><b id="s3">Outcome: approved</b> (stamp lands once, then stays)</div>
+<div class="screen"><div class="page">
+<article class="docket good" aria-labelledby="o1"><div class="in-body">
+<div class="stamp good" role="img" aria-label="Approved">Approved<small>by rule</small></div>
+<h3 id="o1">Request H3X8TD is approved</h3>
+<div class="line"><span class="muted">Member sells</span><span class="big money">500.00 CAD</span></div>
+<div class="line"><span class="muted">Member buys</span><span class="money">USD</span></div>
+<div class="line"><span class="muted">Why</span><span style="text-align:right">Within the automatic limit for this currency pair.</span></div>
+<div class="next"><strong>Next step.</strong> Complete the exchange in the existing system, then record what you executed.</div>
+<div class="actions" style="margin-top:0"><a class="btn" href="#">Open request</a><a class="btn sec" href="#">New request</a></div>
+</div><div class="tear"></div></article>
+</div></div></section>
+
+<!-- 3b OUTCOME DECLINE -->
+<section class="frame" aria-labelledby="s4"><div class="cap"><b id="s4">Outcome: declined by rule</b></div>
+<div class="screen"><div class="page">
+<article class="docket bad" aria-labelledby="o2"><div class="in-body">
+<div class="stamp bad" role="img" aria-label="Declined">Declined<small>by rule</small></div>
+<h3 id="o2">Request B2N6LC is declined</h3>
+<div class="line"><span class="muted">Member sells</span><span class="big money">100.00 CAD</span></div>
+<div class="line"><span class="muted">Member buys</span><span class="money">JPY</span></div>
+<div class="line"><span class="muted">Why</span><span style="text-align:right">This currency pair is not offered yet.</span></div>
+<div class="next"><strong>Next step.</strong> Tell the member. If you think this is wrong, you can escalate it once, with a reason.</div>
+<div class="actions" style="margin-top:0"><a class="btn" href="#">Escalate</a><a class="btn sec" href="#">Open request</a></div>
+</div><div class="tear"></div></article>
+</div></div></section>
+
+<!-- 3c OUTCOME REVIEW -->
+<section class="frame" aria-labelledby="s5"><div class="cap"><b id="s5">Outcome: sent to head office</b></div>
+<div class="screen"><div class="page">
+<article class="docket" aria-labelledby="o3"><div class="in-body">
+<div class="stamp review" role="img" aria-label="With head office">With head office<small>waiting for a reviewer</small></div>
+<h3 id="o3">Request P9R4WA is with head office</h3>
+<div class="line"><span class="muted">Member sells</span><span class="big money">20,000.00 CAD</span></div>
+<div class="line"><span class="muted">Member buys</span><span class="money">USD</span></div>
+<div class="line"><span class="muted">Why</span><span style="text-align:right">A head-office reviewer needs to decide this one.</span></div>
+<div class="next"><strong>Next step.</strong> Nothing to do now. You will see the answer in your notifications and on this request.</div>
+<div class="actions" style="margin-top:0"><a class="btn" href="#">Open request</a><a class="btn sec" href="#">New request</a></div>
+</div><div class="tear"></div></article>
+</div></div></section>
+
+<!-- 4 DETAIL WITH TIMELINE -->
+<section class="frame" aria-labelledby="s6"><div class="cap"><b id="s6">Teller: request detail with history</b></div>
+<div class="screen"><div class="page">
+<p style="margin-bottom:.5rem"><a href="#">Back to my requests</a></p>
+<div class="head"><div><h2>Request <code>K7M2Q9</code></h2><p style="margin-top:.35rem"><span class="mark info"><i><b>?</b></i>More information needed</span> <span class="muted">Round 1, branch 014</span></p></div>
+<div class="actions" style="margin:0"><a class="btn" href="#">Update and resubmit</a><button class="btn sec">Cancel request</button></div></div>
+<div class="sheet" style="border-left:4px solid var(--warn);margin-bottom:1.25rem"><strong>The reviewer asked:</strong> What is the member buying the currency for? Add it to the note, then resubmit.</div>
+<div class="two">
+<section class="sheet"><h3>Request</h3><dl class="kv">
+<dt>Member sells</dt><dd class="money" style="text-align:left;font-size:1.125rem">3,200.00 CAD</dd><dt>Member buys</dt><dd>USD</dd><dt>Type</dt><dd>Exchange</dd><dt>Payment</dt><dd>From account</dd><dt>Member ref</dt><dd><code>M-48213</code></dd></dl></section>
+<section class="sheet"><h3>History</h3>
+<ol class="timeline">
+<li><span class="when">Oct 1, 09:42</span><div class="what"><strong>Submitted</strong><div class="who2">Amira Tran, teller</div></div></li>
+<li><span class="when">Oct 1, 09:42</span><div class="what cycle"><strong>Sent for review</strong><div class="who2">Rule engine. A reviewer needs to decide.</div></div></li>
+<li><span class="when">Oct 1, 09:51</span><div class="what cycle"><strong>More information requested</strong><div class="who2">Reviewer, head office</div></div></li>
+</ol></section>
+</div>
+</div></div></section>
+
+<!-- 5 REVIEWER QUEUE -->
+<section class="frame" aria-labelledby="s7"><div class="cap"><b id="s7">Reviewer: queue</b></div>
+<div class="screen">
+<header class="bar"><span class="brand">Exchange<b>Flow</b></span><nav aria-label="Main"><a href="#" aria-current="page">Review queue</a><a href="#">Decision engine</a></nav><span class="sp"></span><div class="who">Jon Pelletier<br>Reviewer</div></header>
+<div class="page">
+<div class="head"><div><h2>Review queue</h2><p class="muted">4 waiting. Longest wait 52 min. Oldest first.</p></div></div>
+<table class="ledger"><caption style="position:absolute;left:-9999px">Requests waiting for review, oldest first</caption>
+<thead><tr><th>Waiting</th><th>Ref</th><th>Branch</th><th class="n">Member sells</th><th>Why it is here</th><th></th></tr></thead>
+<tbody>
+<tr class="r-review"><td><div class="age"><span class="meter" aria-hidden="true"><span style="width:100%"></span></span><span>52 min</span></div></td><td><a class="ref" href="#">P9R4WA</a></td><td>014</td><td class="n money">20,000.00 CAD</td><td>Rule needs a person</td><td><a class="btn sm sec" href="#">Open</a></td></tr>
+<tr class="r-review"><td><div class="age"><span class="meter" aria-hidden="true"><span style="width:58%"></span></span><span>29 min</span></div></td><td><a class="ref" href="#">W4E8ZN</a></td><td>022</td><td class="n money">300.00 CAD</td><td>Wire request</td><td><a class="btn sm sec" href="#">Open</a></td></tr>
+<tr class="r-review"><td><div class="age"><span class="meter" aria-hidden="true"><span style="width:30%"></span></span><span>15 min</span></div></td><td><a class="ref" href="#">Y8C2VH</a></td><td>014</td><td class="n money">100.00 CAD</td><td><span class="tag">Sent again by teller</span></td><td><a class="btn sm sec" href="#">Open</a></td></tr>
+<tr class="r-review"><td><div class="age"><span class="meter" aria-hidden="true"><span style="width:8%"></span></span><span>4 min</span></div></td><td><a class="ref" href="#">G1F7QS</a></td><td>031</td><td class="n money">1,800.00 EUR</td><td>Rule needs a person</td><td><a class="btn sm sec" href="#">Open</a></td></tr>
+</tbody></table>
+<p class="muted" style="font-size:.8125rem;margin-top:.5rem">Age is shown in minutes, oldest first. The meter uses a fixed visual scale capped at 60 minutes and is not a deadline. The queue refreshes quietly every 15 seconds and never moves the row you are on.</p>
+</div></div></section>
+
+<!-- 6 DECISION PANEL + ENGINE -->
+<section class="frame" aria-labelledby="s8"><div class="cap"><b id="s8">Reviewer: decision panel and engine detail</b></div>
+<div class="screen"><div class="page">
+<div class="head"><div><h2>Request <code>P9R4WA</code></h2><p style="margin-top:.35rem"><span class="mark review"><i></i>In head-office review</span> <span class="muted">Waiting 52 min, branch 014</span></p></div></div>
+<div class="two">
+<div style="display:grid;gap:1.25rem">
+<section class="sheet"><h3>Request</h3><dl class="kv"><dt>Member sells</dt><dd class="money" style="text-align:left;font-size:1.5rem">20,000.00 CAD</dd><dt>Member buys</dt><dd>USD</dd><dt>Type</dt><dd>Exchange</dd><dt>Payment</dt><dd>From account</dd><dt>Teller note</dt><dd>Member planning a trip abroad.</dd></dl></section>
+<details class="engine"><summary>How the engine decided</summary><div class="in-body">
+<dl class="kv"><dt>Result</dt><dd>Sent to a person</dd><dt>Reason</dt><dd>Rule needs a person</dd><dt>Rule</dt><dd><code>large-amount</code> <span class="tag">test rule</span></dd><dt>Policy</dt><dd><code>v3 a41f09</code></dd><dt>Checked</dt><dd class="money" style="text-align:left">Oct 1, 09:42</dd></dl>
+</div></details>
+</div>
+<aside class="decide" aria-labelledby="dp"><header><h3 id="dp">Your decision</h3></header><div class="body">
+<p class="muted" style="font-size:.875rem">You cannot decide a request you submitted. Declining or asking for information needs a reason.</p>
+<div class="f" style="margin:1rem 0 0"><label for="why">Reason</label><textarea id="why" class="in" rows="3"></textarea><span class="hint">Needed to decline or ask for information. The teller sees it.</span></div>
+<div class="row"><button class="btn approve">Approve</button><button class="btn neg" disabled>Decline</button><button class="btn sec" disabled>Ask for information</button></div>
+<p class="muted" style="font-size:.8125rem;margin-top:.6rem">Decline and Ask for information turn on when you write a reason of at least 3 characters.</p>
+</div></aside>
+</div>
+</div></div></section>
+
+<!-- 9 FORM CONTROLS -->
+<section class="frame" aria-labelledby="s9"><div class="cap"><b id="s9">Form controls: radio group, select, textarea, conditional field, checkbox, language toggle, footer</b> (pattern studied from the alterna.ca contact form; colours and shapes are ours)</div>
+<div class="screen"><div class="bar"><span class="brand">Exchange<b>Flow</b></span><span class="sp"></span><button class="lang" type="button"><span lang="fr">Fran&#231;ais</span></button></div>
+<div class="page">
+<form class="slip" onsubmit="return false" novalidate aria-label="Control examples">
+<div class="slip-head"><h3>Control examples</h3><span class="muted">Not a real form</span></div>
+<div class="slip-body">
+<div class="f"><fieldset><legend>Payment method</legend>
+ <div class="opt"><input type="radio" id="p1" name="pm2" checked><label for="p1">From account</label></div>
+ <div class="opt"><input type="radio" id="p2" name="pm2"><label for="p2">Cash</label></div>
+ <div class="opt"><input type="radio" id="p3" name="pm2"><label for="p3">Other (tell us in the note)</label></div>
+</fieldset></div>
+<div class="cond"><div class="f"><label for="why">What is the other method?</label><input id="why" class="in"><span class="hint">Appears only after "Other" is chosen. Hidden fields are not validated.</span></div></div>
+<div class="f"><label for="cur">Currency to buy</label><select id="cur" class="in"><option>Choose a currency</option><option>USD</option><option>EUR</option></select></div>
+<div class="f"><label for="nt">Note for the reviewer (optional)</label><textarea id="nt" class="in" rows="3"></textarea><span class="hint">Keep it short. No personal details.</span></div>
+<div class="f"><div class="opt"><input type="checkbox" id="ck" checked><label for="ck">Member was present at the counter</label></div></div>
+<div class="actions"><button class="btn" type="submit">Submit request</button><a class="btn quiet" href="#">Cancel</a></div>
+</div></form>
+<div class="foot"><a href="#">Accessibility</a><a href="#">Privacy</a><span>Version 0.1</span></div>
+</div></div></section>
+
+</div>
+<p class="notes">Reading order notes: status is always a shape plus a word plus a colour. Money is monospaced, tabular and right-aligned in lists. The only animation is the stamp on the outcome screens, which runs once and is off when the system asks for reduced motion.</p>
+</div>
+</body></html>

@@ -1,0 +1,151 @@
+@import './tokens.css';
+
+/* Branch desk: one page, "the slip and the ledger". Form-control sizes follow the Pass 4 refinements drawn from the
+   alterna.ca email-us form (docs/ui-design/alterna-ui-extraction.md §4): labels above, 40px controls, 24px radios,
+   ink chevron, vertical textarea, error text tied with aria-describedby, one error summary, no captcha. */
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 var(--text-md)/var(--leading-body) var(--font-ui); }
+h1, h2, h3, p, dl, dd, ul { margin: 0; }
+h1 { font-size: var(--text-lg); line-height: var(--leading-tight); font-weight: 600; }
+h2 { font-size: var(--text-lg); line-height: var(--leading-tight); font-weight: 600; }
+h3 { font-size: var(--text-md); font-weight: 600; }
+.ref { font-family: var(--font-figure); font-size: var(--text-sm); }
+.muted { color: var(--ink-muted); }
+.small { font-size: var(--text-xs); }
+:focus-visible { outline: var(--focus-width) solid var(--focus); outline-offset: var(--focus-offset); }
+main:focus, h2:focus, .sum:focus { outline: none; }
+.skip { position: absolute; left: var(--space-2); top: -4rem; background: var(--slip); color: var(--ink); border: 2px solid var(--ink); padding: var(--space-2) var(--space-3); z-index: 40; }
+.skip:focus { top: var(--space-2); }
+
+/* chrome */
+.bar { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; min-height: 3rem; padding: 0 var(--space-4); background: var(--slip); border-bottom: var(--border-edge) solid var(--ink); }
+.brand { font-weight: 700; color: var(--ink); }
+/* Alterna logo (by URL, DL-N37). Alterna supplies no dark-mode version, so it always sits on a white plate. */
+:root { --logo-plate: #FFFFFF; }
+.logo-plate { display: inline-flex; align-items: center; background: var(--logo-plate); padding: 0.2rem 0.4rem; border-radius: var(--radius-sm); }
+.logo { display: block; height: 1.5rem; width: auto; }
+.record-brand { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+.wordmark-flow { color: var(--brand); }
+.desk-name { font-weight: 600; color: var(--ink-muted); border-left: 1px solid var(--rule); padding-left: var(--space-4); }
+.sp { flex: 1; }
+.who { font-size: var(--text-xs); color: var(--ink-muted); }
+.who strong { color: var(--ink); font-weight: 500; }
+.proto { background: var(--review-tint); color: var(--ink); font-size: var(--text-sm); padding: var(--space-2) var(--space-4); border-bottom: 1px solid var(--review); }
+.proto-record { border: 2px dashed var(--ink); text-align: center; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: var(--space-2); }
+.page { max-width: var(--page-max); margin: 0 auto; padding: var(--space-5) var(--space-4) var(--space-6); }
+.foot { max-width: var(--page-max); margin: 0 auto; padding: 0 var(--space-4) var(--space-6); }
+.desk { display: grid; gap: var(--space-5); grid-template-columns: minmax(0, var(--slip-width)); }
+.desk.has-record { grid-template-columns: minmax(0, var(--slip-width)) minmax(0, 1fr); align-items: start; }
+@media (max-width: 64rem) { .desk.has-record { grid-template-columns: minmax(0, 1fr); } }
+
+/* slip and form */
+.slip { background: var(--slip); border: var(--border-edge) solid var(--ink); }
+.slip-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-2) var(--space-4); flex-wrap: wrap; padding: var(--space-3) var(--space-4); border-bottom: var(--border-edge) solid var(--ink); }
+.slip-body { padding: var(--space-4); border: 0; margin: 0; min-width: 0; }
+.slip-body:disabled .in, .slip-body:disabled input[type=radio] { background-color: var(--paper); cursor: default; }
+.section { font-size: var(--text-md); margin: var(--space-5) 0 var(--space-3); padding-bottom: var(--space-1); border-bottom: 1px solid var(--rule); }
+.row2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-3); }
+@media (max-width: 30rem) { .row2 { grid-template-columns: minmax(0, 1fr); } }
+.f { display: grid; gap: var(--space-1); margin: 0 0 var(--space-4); min-width: 0; border: 0; padding: 0; }
+.f > label, .lbl { font-weight: 600; font-size: var(--text-sm); padding: 0; }
+.opt { font-weight: 400; color: var(--ink-muted); }
+.hint { font-size: var(--text-xs); color: var(--ink-muted); }
+.in { font: 400 var(--text-md) var(--font-ui); min-height: var(--control-height); padding: 0.4rem 0.6rem; border: 1px solid var(--edge); border-radius: var(--radius-sm); background: var(--slip); color: var(--ink); width: 100%; }
+textarea.in { min-height: var(--textarea-min); resize: vertical; }
+select.in { appearance: none; padding-right: 2.25rem;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 1.1rem) 55%, calc(100% - 0.7rem) 55%; background-size: 0.4rem 0.4rem; background-repeat: no-repeat; }
+.in.amt { font: 500 var(--text-xl) var(--font-figure); text-align: right; font-variant-numeric: tabular-nums slashed-zero; min-height: var(--control-height-amount); }
+.f.err .in { border-color: var(--bad); box-shadow: inset 0 0 0 1px var(--bad); background-color: var(--bad-tint); }
+.msg { display: flex; gap: 0.4rem; color: var(--bad); font-weight: 500; font-size: var(--text-sm); }
+.msg::before { content: "!" / ""; display: inline-grid; place-items: center; width: 1.1rem; height: 1.1rem; background: var(--bad); color: var(--slip); font-weight: 700; font-size: 0.75rem; border-radius: 50%; flex: none; margin-top: 0.1rem; }
+.choice { display: flex; align-items: center; gap: var(--space-2); min-height: var(--control-height); cursor: pointer; }
+input[type=radio] { appearance: none; margin: 0; width: var(--radio-size); height: var(--radio-size); border: 2px solid var(--edge); border-radius: 50%; background: var(--slip); display: inline-grid; place-items: center; flex: none; cursor: pointer; }
+input[type=radio]::after { content: ""; width: 0.75rem; height: 0.75rem; border-radius: 50%; background: var(--ink); transform: scale(0); }
+input[type=radio]:checked { border-color: var(--ink); }
+input[type=radio]:checked::after { transform: scale(1); }
+.f.group.err input[type=radio] { border-color: var(--bad); }
+.sale { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-3); align-items: start; padding: var(--space-4) var(--space-4) 0; border: 1px solid var(--edge); background: var(--paper); margin-bottom: var(--space-3); }
+@media (max-width: 30rem) { .sale { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .sale .f:first-child { grid-column: 1 / -1; } }
+.give { border: 1px solid var(--edge); background: var(--slip); padding: var(--space-3) var(--space-4); margin-bottom: var(--space-4); display: grid; gap: var(--space-1); }
+.give .fig { font: 500 var(--text-lg)/1.2 var(--font-figure); font-variant-numeric: tabular-nums slashed-zero; }
+.stale { border-left: 4px solid var(--warn); background: var(--warn-tint); padding: var(--space-1) var(--space-3); }
+.sum { border: 1px solid var(--bad); border-left: 4px solid var(--bad); background: var(--bad-tint); padding: var(--space-3); margin-bottom: var(--space-4); }
+.sum ul { padding-left: 1.1rem; margin-top: var(--space-1); }
+.banner { border-left: 4px solid var(--bad); background: var(--bad-tint); padding: var(--space-3); border: 1px solid var(--bad); border-left-width: 4px; }
+
+/* buttons */
+.actions { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; margin-top: var(--space-4); }
+.btn { font: 600 var(--text-md)/1 var(--font-ui); min-height: var(--control-height); padding: 0 var(--space-4); border: var(--border-edge) solid var(--btn); background: var(--btn); color: var(--on-btn); border-radius: var(--radius-sm); cursor: pointer; display: inline-flex; align-items: center; text-decoration: none; }
+.btn:hover:not(:disabled) { filter: brightness(1.15); }
+.btn.sec { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn.sec:hover { background: var(--rule); filter: none; }
+.btn.quiet { background: transparent; border-color: transparent; color: var(--link); text-decoration: underline; text-underline-offset: 3px; padding: 0 var(--space-2); }
+.btn.quiet:hover { background: var(--review-tint); filter: none; }
+.btn:disabled { background: var(--rule); color: var(--ink-muted); border-color: var(--rule); cursor: not-allowed; }
+
+/* status mark: shape + word + colour, never colour alone */
+.mark { display: inline-flex; }
+.mark i { display: inline-grid; place-items: center; width: 1.6rem; height: 1.6rem; font: 700 1rem/1 var(--font-ui); font-style: normal; border: 3px solid currentColor; }
+.mark.good i { border-radius: 2px; background: var(--good); color: var(--slip); }
+.mark.bad i { border-radius: 50%; background: var(--bad); color: var(--slip); }
+.mark.review i { border-radius: 50% 50% 0 0; }
+
+/* the record */
+.record-paper { background: var(--slip); border: var(--border-edge) solid var(--ink); padding: var(--space-5); display: grid; gap: var(--space-4); }
+.record-head { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-4); flex-wrap: wrap; border-bottom: var(--border-edge) solid var(--ink); padding-bottom: var(--space-3); }
+.record-head h2 { font-size: var(--text-xl); margin: var(--space-1) 0; }
+.stamp { display: inline-flex; align-items: center; gap: var(--space-2); transform: rotate(-3deg); border: 4px double currentColor; padding: 0.2rem 0.75rem; font: 700 var(--text-xl)/1.1 var(--font-stamp); text-transform: uppercase; letter-spacing: 0.03em; max-width: 16rem; }
+.stamp.good { color: var(--good); } .stamp.bad { color: var(--bad); } .stamp.review { color: var(--review); }
+.next { border-left: 4px solid var(--review); background: var(--review-tint); padding: var(--space-2) var(--space-3); display: grid; gap: var(--space-1); }
+.record.good .next { border-color: var(--good); background: var(--good-tint); }
+.record.bad .next { border-color: var(--bad); background: var(--bad-tint); }
+.kv { display: grid; grid-template-columns: minmax(8rem, max-content) minmax(0, 1fr); gap: 0.4rem var(--space-4); }
+.kv dt { color: var(--ink-muted); }
+.kv dd { overflow-wrap: anywhere; }
+.money { font-family: var(--font-figure); font-variant-numeric: tabular-nums slashed-zero; font-weight: 500; }
+.kv dd.money, .kv dd .money { text-align: left; }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.sum a { color: var(--ink); }
+.kv.meta { border-top: 1px solid var(--rule); padding-top: var(--space-3); }
+.sign { display: grid; gap: var(--space-5); margin-top: var(--space-4); }
+.sign-line { display: grid; grid-template-columns: minmax(0, 1fr) 9rem; column-gap: var(--space-4); }
+.sign-line .line { border-bottom: 1px solid var(--ink); height: 2rem; grid-row: 1; }
+.sign-line .small { grid-row: 2; color: var(--ink-muted); }
+.fine { border-top: 1px solid var(--rule); padding-top: var(--space-2); }
+@media (max-width: 30rem) {
+  .record-paper { padding: var(--space-4); }
+  .kv { grid-template-columns: minmax(0, 1fr); gap: 0 var(--space-4); }
+  .kv dd { margin-bottom: var(--space-2); }
+  .money { white-space: normal; }
+  .sign-line { grid-template-columns: minmax(0, 1fr) 6rem; }
+}
+
+@media (forced-colors: active) {
+  .mark i, .stamp, .sum, .banner { forced-color-adjust: auto; border-color: CanvasText; }
+  input[type=radio]:checked::after { background: CanvasText; }
+  :focus-visible { outline-color: Highlight; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* print: the record only, light values on white paper. The selectors repeat the dark-theme selectors so they win
+   even when the computer is in dark mode (DESK-UI-01). Values are the light theme's own tokens. */
+@media print {
+  @page { size: letter; margin: 14mm; }
+  :root, :root:not([data-theme="light"]), :root[data-theme="dark"] {
+    color-scheme: light;
+    --paper: #FFFFFF; --slip: #FFFFFF; --rule: #D8D3CF; --edge: #7A7470; --ink: #2A2A3E; --ink-muted: #55536A;
+    --brand: #BD5A00; --link: #2F3A8C; --review: #2F3A8C; --review-tint: #E6E8F4;
+    --good: #1B6B3D; --bad: #B3261E; --warn: #6F4A00; --good-tint: #E3F1E7; --bad-tint: #F9E4E1; --warn-tint: #F7EBCF;
+  }
+  body { background: var(--slip); color: var(--ink); }
+  .no-print, .skip { display: none !important; }
+  .page { padding: 0; max-width: none; }
+  .desk, .desk.has-record { display: block; }
+  .record-paper { border: 1px solid var(--ink); padding: 8mm; }
+  .record-head, .next, .kv, .sign { break-inside: avoid; }
+  .sign { break-before: avoid; }
+  .stamp, .mark i, .next { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}

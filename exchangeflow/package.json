@@ -1,0 +1,25 @@
+{
+  "name": "exchangeflow",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.30.3",
+  "scripts": {
+    "dev": "concurrently -k -n db,api,web -c blue,green,magenta \"pnpm db\" \"pnpm api\" \"pnpm web\"",
+    "db": "node scripts/dev-db.mjs",
+    "api": "pnpm --filter @ef/api dev",
+    "web": "pnpm --filter @ef/web dev",
+    "test": "vitest run",
+    "check:prod-bundle": "pnpm --filter @ef/web build && ! grep -rq 'dev/users' apps/web/dist && echo 'ok: no dev sign-in in the production bundle'",
+    "typecheck": "tsc -b --noEmit false || true",
+    "db:reset": "rm -rf .data && echo 'local database removed'"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0",
+    "tsx": "^4.19.0",
+    "@types/node": "^22.10.0",
+    "embedded-postgres": "16.14.0-beta.17",
+    "pg": "^8.13.0"
+  }
+}

@@ -1,0 +1,3 @@
+{ "name": "@ef/adapter-postgres", "version": "0.0.0", "private": true, "type": "module", "main": "src/index.ts", "types": "src/index.ts",
+  "dependencies": { "@ef/ports": "workspace:*", "@ef/policy-core": "workspace:*", "@ef/workflow-core": "workspace:*", "pg": "^8.13.0" },
+  "devDependencies": { "@types/pg": "^8.11.0" } }
